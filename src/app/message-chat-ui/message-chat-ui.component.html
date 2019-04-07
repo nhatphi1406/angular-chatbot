@@ -1,0 +1,33 @@
+<!-- <input type="text" [(ngModel)]="input">
+<div *ngFor="let item of chatList">
+    <p *ngIf="item.sender == 'user'" class="red">
+        {{item.message}}
+    </p>
+    <p *ngIf="item.sender == 'bot'" class="blue">
+        {{item.message}}
+    </p>
+</div>
+<button (click)="send()">Submit</button> -->
+
+<div class="container">
+    <div class="chatbox">
+        <div class="chatlogs">
+            <div *ngFor="let item of chatList" >
+                <div class="chat self" *ngIf="item.sender == 'user'" >
+                    <div class="user-photo"></div>
+                    <p class="chat-message"> {{item.message}}</p>
+                </div>
+                <div class="chat friend" *ngIf="item.sender == 'bot'" >
+                        <div class="user-photo"></div>
+                        <p class="chat-message"> {{item.message}}</p>
+                    </div>
+            </div>
+            
+            
+        </div>
+        <div class="chat-form">
+            <input type="text" [(ngModel)]="input">
+            <button (click)="send()">Send</button>
+        </div>
+    </div>
+</div>

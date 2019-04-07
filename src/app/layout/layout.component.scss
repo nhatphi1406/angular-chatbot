@@ -1,0 +1,218 @@
+.main {
+    height: 100%;
+    width: 100%;
+    background-image: url('https://iso.500px.com/wp-content/uploads/2016/08/stock-photo-150151767.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: red;
+
+    .menu {
+        width: 100%;
+        height: 60px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        //background: rgba(58, 58, 58, 0.5);
+        // background: rgba(165, 165, 165, 0.7);
+
+        .logo {
+            img {
+                width: 75px;
+                height: 75px;
+                padding: 20px;
+              
+            }
+        }
+
+        .lang {
+            align-self: center;
+            margin-right: 20px;
+        }
+    }
+
+    .container {
+        flex: 1;
+        display: flex;
+        height: calc(100% - 80px);
+
+        .left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+
+            .container {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0.9;
+
+                .chatbox {
+                    width: 500px;
+                    min-width: 390px;
+                    height: 600px;
+                    padding: 25px 25px 25px 30px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    border: 1px solid #fff;
+                    border-radius: 15px;
+                    background-color: #fff;
+                }
+
+                .chatlogs {
+                    width: 100%;
+                    overflow-x: hidden;
+                    overflow-y: scroll;
+                    flex: 1;
+                    border-bottom: 1px solid #ccc;
+                    padding-right: 3px;
+                }
+
+                .chatlogs::-webkit-scrollbar {
+                    width: 4px;
+                }
+
+                .chatlogs::-webkit-scrollbar-thumb {
+                    border-radius: 5px;
+                    background: rgba(36, 36, 36, 0.4);
+                }
+
+                .chat {
+                    display: flex;
+                    margin-bottom: 10px;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+
+                .chat .user-photo {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        border: 1px solid #fff;
+                        padding: 5px;
+                        border-radius: 50%;
+                        box-shadow: 0 1px 4px hsla(0, 0%, 0%, 0.3);
+                    }
+                }
+
+                .chat .chat-message {
+                    text-align: right;
+
+                    width: 80%;
+                    padding: 15px;
+                    color: #fff;
+                    font-size: 20px;
+                    box-shadow: 0 1px 4px hsla(0, 0%, 0%, 0.3);
+
+                }
+
+                .friend .chat-message {
+                    text-align: left;
+                    background: #3578E5;
+                    border-radius: 10px 10px 10px 0px;
+                    margin: 0 0 10px 10px;
+                }
+
+                .self .chat-message {
+                    background: #ccc;
+                    order: -1;
+                    border-radius: 10px 10px 0px 10px;
+                    margin: 0 0 10px 0;
+                }
+
+                .chat-form {
+                    margin-top: 20px;
+                    display: flex;
+                }
+
+                .chat-form input {
+                    background: #fbfbfb;
+                    width: 75%;
+                    // height: 50px;
+                    border: 2px solid #b7b7b7;
+                    border-radius: 3px;
+                    resize: none;
+                    padding: 10px;
+                    font-size: 18px;
+                    color: #333;
+                }
+
+                .chat-form input:focus {
+                    background: #fff;
+                }
+
+                .chat-form button {
+                    background: #3578E5;
+                    padding: 5px 15px;
+                    font-size: 30px;
+                    color: #fff;
+                    border: none;
+                    margin: 0;
+                    margin-left: 10px;
+                    border-radius: 3px;
+                    cursor: pointer;
+                    -webkit-transaction: background .2s ease;
+                    -moz-transaction: backgroud .2s ease;
+                    -o-transaction: backgroud .2s ease;
+                }
+
+                .chat-form button:hover {
+                    background: #13c8d9;
+                }
+            }
+        }
+
+        .right {
+            flex: 1;
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-content: center;
+                align-items: center;
+                height: 100%;
+
+                .face {
+                    img {
+                        max-height: 500px;
+                    }
+                }
+
+                .message {
+                    text-align: center;
+                    p {
+                        color: #fff;
+                        margin: 0
+                    }
+                }
+
+                button {
+                    background-color: #fff;
+                    border: none;
+                    border-radius: 25px;
+                    padding: 10px;
+
+                    .disable {
+                        background-color: red;
+                    }
+
+                    &.disappear {
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+    }
+}

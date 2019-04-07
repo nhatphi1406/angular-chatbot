@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.479);
+    height: 100%;
+    .face {
+        padding-top:20px;
+        img {
+            height: 500px;
+        }
+    }
+    .message {
+        height: 120px;
+        p {
+            color: #fff;
+            margin: 0
+            
+        }
+    }
+    button {
+        background-color: #fff;
+        border:none;
+        border-radius: 25px;
+        padding: 10px;
+        .disable {
+            background-color: red;
+        }
+        &.disappear {
+            opacity: 0;
+        }
+    }
+}
