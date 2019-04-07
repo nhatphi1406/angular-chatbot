@@ -67,11 +67,11 @@ export class LayoutComponent implements OnInit {
       message: 'data[0].text'
     },
   ]
-  showSearchButton: boolean;
+  listening: boolean;
   speechData: string;
   img: string;
   constructor(private chatSVC: ChatService, private speechRecognitionService: SpeechRecognitionService) {
-    this.showSearchButton = true;
+    this.listening = true;
     this.speechData = "";
 
     //this.img = 'gif1.PNG';
@@ -91,6 +91,8 @@ export class LayoutComponent implements OnInit {
     })
     this.chatSVC.sendMessage(this.input).subscribe(data => {
       console.log(data);
+      this.speechRecognitionService.sayCancel();
+      this.speechRecognitionService.sayIt(data[0].text);
       this.chatList.push({
         sender: 'bot',
         message: data[0].text
@@ -100,24 +102,24 @@ export class LayoutComponent implements OnInit {
     this.input = '';
   }
   activateSpeechSearchMovie(): void {
-    this.showSearchButton = false;
-
+    this.listening = false;
     this.speechRecognitionService.record()
       .subscribe(
         //listener
         (value) => {
-          this.speechData = value;
+          this.listening = true;
+          this.speechData = 'You said: ' + value;
+          this.speechRecognitionService.DestroySpeechObject();
           this.chatList.push({
             sender: 'user',
             message: value
           })
           this.chatSVC.sendMessage(value).subscribe(data => {
-            this.showSearchButton = true;
+            console.log(data);
             this.chatList.push({
               sender: 'bot',
               message: data[0].text
             })
-            this.speechRecognitionService.DestroySpeechObject();
             if (Object.keys(data).length != 0) {
               this.img = 'gif1.gif';
               this.speechRecognitionService.sayCancel();
@@ -142,7 +144,7 @@ export class LayoutComponent implements OnInit {
         },
         //completion
         () => {
-          this.showSearchButton = true;
+          this.listening = true;
           console.log("--complete--");
           this.stop();
         });
@@ -150,6 +152,7 @@ export class LayoutComponent implements OnInit {
 
   stop() {
     this.speechRecognitionService.DestroySpeechObject();
+    this.listening = true;
   }
 
 }

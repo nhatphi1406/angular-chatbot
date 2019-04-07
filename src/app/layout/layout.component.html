@@ -2,8 +2,9 @@
     <div class="layer"></div>
     <div class="menu">
         <div class="logo">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HCMUT_official_logo.png/760px-HCMUT_official_logo.png"
+            <img src="../../assets/logo.png"
                 alt="">
+                <p>BK Bot.</p>
         </div>
         <div class="lang">
             ENG
@@ -19,7 +20,7 @@
                 </div>
                 <div class="message">
                     <!-- <p>{{speechData}}</p> -->
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem ipsa blanditiis perspiciatis maiores tempore dolore aliquid error quia in. Possimus, iure! Nihil quo modi architecto porro ab suscipit vitae. Maiores.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non sint autem aliquid tempora quidem ipsa asperiores error, eveniet impedit, veritatis voluptatibus facilis facere saepe dignissimos, consequuntur nesciunt doloremque dolor pariatur!</p>
                 </div>
 
             </div>
@@ -44,13 +45,20 @@
                     <div class="chat-form">
                         <input type="text" [(ngModel)]="input"  (keyup.enter)="send()">
                         <button name="btnActivateSpeechSearchMovie" id="btnActivateSpeechSearchMovie"
-                            (click)="activateSpeechSearchMovie()"><img src="../../assets/mic.png" alt=""></button>
+                            (click)="activateSpeechSearchMovie()">
+                            <img src="../../assets/mic.png" alt="">
+                            
+                        </button>
                         <button (click)="send()">Send</button>
+
 
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="listening" [ngClass]="{disable: listening == true}">
+            <p>I'm listening</p>
+            <button (click)="stop()">Cancel</button>
+        </div>
     </div>
 </div>
