@@ -13,6 +13,7 @@ import Speech from 'speak-tts';
 import { LayoutComponent } from './layout/layout.component';
 import { BotComponent } from './bot/bot.component';
 import { HomeComponent } from './home/home.component';
+import Filter from 'bad-words';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,13 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    
   ],
   providers: [
     ChatService,
     SpeechRecognitionService,
     Speech,
+    Filter
   ],
   bootstrap: [AppComponent],
 })

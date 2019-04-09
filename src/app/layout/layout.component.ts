@@ -10,62 +10,7 @@ import { SpeechRecognitionService } from '../services/speechtotext.service';
 export class LayoutComponent implements OnInit {
   input: String = '';
   chatList: any[] = [
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'bot',
-      message: 'data[0].text'
-    },
-    {
-      sender: 'user',
-      message: 'data[0].text'
-    },
+
   ]
   listening: boolean;
   speechData: string;
@@ -75,7 +20,7 @@ export class LayoutComponent implements OnInit {
     this.speechData = "";
 
     //this.img = 'gif1.PNG';
-    
+
   }
 
   ngOnInit() {
@@ -88,17 +33,26 @@ export class LayoutComponent implements OnInit {
     this.chatList.push({
       sender: 'user',
       message: this.input
-    })
-    this.chatSVC.sendMessage(this.input).subscribe(data => {
-      console.log(data);
-      this.speechRecognitionService.sayCancel();
-      this.speechRecognitionService.sayIt(data[0].text);
-      this.chatList.push({
-        sender: 'bot',
-        message: data[0].text
-      })
     });
 
+    if (this.chatSVC.checkBadWords(this.input)) {
+      console.log(this.chatSVC.checkBadWords(this.input));
+      this.chatList.push({
+        sender: 'bot',
+        message: 'Your question contains bad words, please say again!'
+      })
+    }
+    else {
+      this.chatSVC.sendMessage(this.input).subscribe(data => {
+        console.log(data);
+        this.speechRecognitionService.sayCancel();
+        this.speechRecognitionService.sayIt(data[0].text);
+        this.chatList.push({
+          sender: 'bot',
+          message: data[0].text
+        })
+      });
+    }
     this.input = '';
   }
   activateSpeechSearchMovie(): void {
@@ -114,25 +68,32 @@ export class LayoutComponent implements OnInit {
             sender: 'user',
             message: value
           })
-          this.chatSVC.sendMessage(value).subscribe(data => {
-            console.log(data);
+          if (this.chatSVC.checkBadWords(this.input)) {
             this.chatList.push({
               sender: 'bot',
-              message: data[0].text
+              message: 'Your question contains bad words, please say again!'
             })
-            if (Object.keys(data).length != 0) {
-              this.img = 'gif1.gif';
-              this.speechRecognitionService.sayCancel();
-              this.speechRecognitionService.sayIt(data[0].text);
-              this.speechRecognitionService.msg.addEventListener('end', () => {
-                this.img = 'gif1.PNG';
+          }
+          else {
+            this.chatSVC.sendMessage(value).subscribe(data => {
+              console.log(data);
+              this.chatList.push({
+                sender: 'bot',
+                message: data[0].text
               })
-            }
-            else {
-              console.log("dun no")
-            }
-          });
-
+              if (Object.keys(data).length != 0) {
+                this.img = 'gif1.gif';
+                this.speechRecognitionService.sayCancel();
+                this.speechRecognitionService.sayIt(data[0].text);
+                this.speechRecognitionService.msg.addEventListener('end', () => {
+                  this.img = 'gif1.PNG';
+                })
+              }
+              else {
+                console.log("dun no")
+              }
+            });
+          }
         },
         //errror
         (err) => {

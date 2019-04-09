@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import Filter from 'bad-words';
 @Injectable(
     {
-     providedIn: 'root',
+        providedIn: 'root',
     }
- )
+)
 export class ChatService {
-    constructor(private httpClient: HttpClient ) {}
-    sendMessage(text: String){
-        return this.httpClient.post(`https://4272d421.ngrok.io/webhooks/rest/webhook`,{
+    constructor(private httpClient: HttpClient, private filter: Filter) { }
+    text: any;
+    
+    sendMessage(text: String) {
+        console.log(text);
+        return this.httpClient.post(`https://713f5bc8.ngrok.io/webhooks/rest/webhook`, {
             "sender": "user",
-			"message": text
+            "message": text
         })
     }
+    checkBadWords(text: String) {
+        this.text = new Filter();
+        return this.text.isProfane(text);
+    }
+    
 }
