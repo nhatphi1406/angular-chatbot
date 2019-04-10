@@ -19,7 +19,7 @@ export class LayoutComponent implements OnInit {
     this.listening = true;
     this.speechData = "";
 
-    //this.img = 'gif1.PNG';
+    this.img = 'normal.gif';
 
   }
 
@@ -44,13 +44,21 @@ export class LayoutComponent implements OnInit {
     }
     else {
       this.chatSVC.sendMessage(this.input).subscribe(data => {
-        console.log(data);
-        this.speechRecognitionService.sayCancel();
-        this.speechRecognitionService.sayIt(data[0].text);
-        this.chatList.push({
-          sender: 'bot',
-          message: data[0].text
-        })
+        if (!data.status) {
+          console.log(data.data);
+        }
+        else {
+          this.chatList.push({
+            sender: 'bot',
+            message: data.data
+          })
+          this.img = 'talk.gif';
+          this.speechRecognitionService.sayCancel();
+          this.speechRecognitionService.sayIt(data.data);
+          this.speechRecognitionService.msg.addEventListener('end', () => {
+            this.img = 'normal.gif';
+          })
+        }
       });
     }
     this.input = '';
@@ -81,12 +89,12 @@ export class LayoutComponent implements OnInit {
                 sender: 'bot',
                 message: data[0].text
               })
-              if (Object.keys(data).length != 0) {
+              if (Object.keys(data[0].text).length != 0) {
                 this.img = 'gif1.gif';
                 this.speechRecognitionService.sayCancel();
                 this.speechRecognitionService.sayIt(data[0].text);
                 this.speechRecognitionService.msg.addEventListener('end', () => {
-                  this.img = 'gif1.PNG';
+                  this.img = 'normal.gif';
                 })
               }
               else {
