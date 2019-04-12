@@ -9,26 +9,32 @@
 
     .menu {
         width: 100%;
-        height: 60px;
+        height: 80px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        //background: rgba(58, 58, 58, 0.5);
-        // background: rgba(165, 165, 165, 0.7);
+        // background: rgba(87, 87, 87, 0.685);
 
         .logo {
             display: flex;
             flex-direction: row;
+
             img {
-                width: 60px;
-                height: 60px;
-                padding-left: 10px;
+                width: 75px;
+                height: 75px;
+                margin-left: 20px;
             }
-            p {
-                text-transform: uppercase;
-                color: #fff;
-                font-weight: bold;
-                margin-left: 10px;
+
+            ul {
+                list-style-type: none;
+                padding-left: 10px;
+
+                li {
+                    text-transform: uppercase;
+                    color: #fff;
+                    font-weight: bold;
+                    letter-spacing: 2px;
+                }
             }
         }
 

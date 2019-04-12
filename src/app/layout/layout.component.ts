@@ -15,12 +15,12 @@ export class LayoutComponent implements OnInit {
   listening: boolean;
   speechData: string;
   img: string;
+  searchData: any;
   constructor(private chatSVC: ChatService, private speechRecognitionService: SpeechRecognitionService) {
     this.listening = true;
     this.speechData = "";
-
     this.img = 'normal.gif';
-
+    this.chatSVC.setUUID();
   }
 
   ngOnInit() {
@@ -44,21 +44,7 @@ export class LayoutComponent implements OnInit {
     }
     else {
       this.chatSVC.sendMessage(this.input).subscribe(data => {
-        if (!data.status) {
-          console.log(data.data);
-        }
-        else {
-          this.chatList.push({
-            sender: 'bot',
-            message: data.data
-          })
-          this.img = 'talk.gif';
-          this.speechRecognitionService.sayCancel();
-          this.speechRecognitionService.sayIt(data.data);
-          this.speechRecognitionService.msg.addEventListener('end', () => {
-            this.img = 'normal.gif';
-          })
-        }
+        this.botRely(data)
       });
     }
     this.input = '';
@@ -84,22 +70,7 @@ export class LayoutComponent implements OnInit {
           }
           else {
             this.chatSVC.sendMessage(value).subscribe(data => {
-              console.log(data);
-              this.chatList.push({
-                sender: 'bot',
-                message: data[0].text
-              })
-              if (Object.keys(data[0].text).length != 0) {
-                this.img = 'gif1.gif';
-                this.speechRecognitionService.sayCancel();
-                this.speechRecognitionService.sayIt(data[0].text);
-                this.speechRecognitionService.msg.addEventListener('end', () => {
-                  this.img = 'normal.gif';
-                })
-              }
-              else {
-                console.log("dun no")
-              }
+              this.botRely(data)
             });
           }
         },
@@ -124,4 +95,48 @@ export class LayoutComponent implements OnInit {
     this.listening = true;
   }
 
+  botSay(text: String) {
+    this.img = 'talk.gif';
+    this.speechRecognitionService.sayCancel();
+    this.speechRecognitionService.sayIt(text);
+    this.speechRecognitionService.msg.addEventListener('end', () => {
+      this.img = 'normal.gif';
+    })
+  }
+
+  botRely(data: any) {
+    if (!data.status) {
+      this.chatSVC.searchGG(data.data);
+      setTimeout(() => {
+        this.chatSVC.botRep.subscribe(data => {
+          this.searchData = data
+        })
+  
+        console.log(this.searchData);
+        if (this.searchData.resultNumber != null) {
+          if (this.searchData.resultNumber == 0) {
+            this.chatList.push({
+              sender: 'bot',
+              message: 'Sorry, it out of my knowledge'
+            })
+            this.botSay('Sorry, it out of my knowledge')
+          }
+          else if (this.searchData.resultNumber > 0) {
+            this.chatList.push({
+              sender: 'bot',
+              message: 'I don\'t know, but here is some information from Internet'
+            })
+            this.botSay('I don\'t know, but here is some information from Internet')
+          }
+        }
+      }, 700);
+    }
+    else {
+      this.chatList.push({
+        sender: 'bot',
+        message: data.data
+      })
+      this.botSay(data.data)
+    }
+  }
 }
