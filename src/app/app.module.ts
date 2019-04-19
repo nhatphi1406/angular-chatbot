@@ -14,7 +14,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { BotComponent } from './bot/bot.component';
 import { HomeComponent } from './home/home.component';
 import Filter from 'bad-words';
-
+import { LinkyModule } from 'angular-linky';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +29,7 @@ import Filter from 'bad-words';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    
+    LinkyModule
   ],
   providers: [
     ChatService,

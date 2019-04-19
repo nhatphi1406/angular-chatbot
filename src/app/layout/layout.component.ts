@@ -105,6 +105,7 @@ export class LayoutComponent implements OnInit {
   }
 
   botRely(data: any) {
+    console.log(data);
     if (!data.status) {
       this.chatSVC.searchGG(data.data);
       setTimeout(() => {
@@ -126,10 +127,16 @@ export class LayoutComponent implements OnInit {
               sender: 'bot',
               message: 'I don\'t know, but here is some information from Internet'
             })
+            this.searchData.result.slice(0,5).forEach(x=> {
+              this.chatList.push({
+                sender: 'bot',
+                message: `<a href="${x.link}"  target="_blank">${x.title}</a>`
+              })
+            })
             this.botSay('I don\'t know, but here is some information from Internet')
           }
         }
-      }, 700);
+      }, 1000);
     }
     else {
       this.chatList.push({

@@ -1,0 +1,34 @@
+- Can you tell me about Bach Khoa University
+    BKU is blabla
+- what about the study program ?
+    we have bachelor ..., exchange .., master, ...
+- tell me more about pre Universicy?
+    pre-university overview
+- how many major that the university have ?
+    we have 14 major including ....
+- what do we learn in computer science ? 
+    CS overview
+- what can I do after graduate?
+    career ôptunity
+- what about the tuition fee ?
+    cs tuition fee
+- is there any support for foreign student ?
+    We have Visa, Accommodtion and Airport Pickup Support for international students.
+    /n For more information, you can go to this <a href="http://oisp.hcmut.edu.vn/en/admission/supporting-services-for-international-students/">link</a>
+- how much is dormitory fee ?
+    Dormitory fee
+- how to apply ?
+    You can apply online <a href="http://oisp.hcmut.edu.vn/en/admission/apply-online/"> here </a>.
+- is there any requirement?
+    Required minimum score for High School and other accredited international qualifications:
+    \n &bull; High School Average Score and/or High School Graduation Score: 65%
+    \n &bull; International Baccalaureate: 26 points (Max. 42 points)
+    \n &bull; GCE Advanced Level*: Math & science subjects are grade B or above, other subjects are not below grade C
+    \n &bull; SAT (Scholastic Assessment Test): 1190 points (Max. 1600 points)
+    \n &bull; ACT (American College Testing): 24 points (Max. 36 points)
+    \n &bull; BTEC Level 3 Extended Diploma: Math & science subjects are grade B or above, other subjects are not below grade C
+    You can click <a href="http://oisp.hcmut.edu.vn/en/admission/admission-requirements/"> here </a> for more information.
+- what if I dont have IELTS 6.0 or TOEFL iBT 79;
+    take english course
+- I will contact u later
+    contact information

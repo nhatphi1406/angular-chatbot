@@ -26,7 +26,7 @@
                 </div>
                 <div class="message">
                     <!-- <p>{{speechData}}</p> -->
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non sint autem aliquid tempora quidem ipsa asperiores error, eveniet impedit, veritatis voluptatibus facilis facere saepe dignissimos, consequuntur nesciunt doloremque dolor pariatur!</p>
+                    <p>Lorem ipsum dolor sit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amet consectetur adipisicing elit. Non sint autem aliquid tempora quidem ipsa asperiores error, eveniet impedit, veritatis voluptatibus facilis facere saepe dignissimos, consequuntur nesciunt doloremque dolor pariatur!</p>
                 </div>
 
             </div>
@@ -42,11 +42,9 @@
                             </div>
                             <div class="chat friend" *ngIf="item.sender == 'bot'">
                                 <div class="user-photo"><img src="../../assets/android.png" alt=""></div>
-                                <p class="chat-message"> {{item.message}}</p>
+                                <div class="chat-message" [innerHTML]="item.message | linky" > </div>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="chat-form">
                         <input type="text" [(ngModel)]="input"  (keyup.enter)="send()">

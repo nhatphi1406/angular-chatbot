@@ -1,0 +1,214 @@
+intents:
+  - greet
+  - bye
+  - about_bach_khoa
+  - study_program
+  - pre_university
+  - bachelor_overall
+  - bachelor_definition
+  - bachelor_requirement
+  - bachelor_submission
+  - tell_me_more_bachelor_overall
+  - tell_me_more_bachelor_definition
+  - tell_me_more_bachelor_requirement
+  - tell_me_more_bachelor_submission
+  - computer_engineering_overview
+  - computer_engineering_summary
+  - computer_engineering_admission_period
+  - computer_engineering_career_opportunity
+  - computer_engineering_curriculum_structure
+  - computer_engineering_transfer_opportunity
+  - computer_engineering_tuition_fee
+  - computer_science_overview
+  - computer_science_summary
+  - computer_science_admission_period
+  - computer_science_career_opportunity
+  - computer_science_curriculum_structure
+  - computer_science_transfer_opportunity
+  - computer_science_tuition_fee
+  - food_engineering_overview
+  - food_engineering_summary
+  - food_engineering_admission_period
+  - food_engineering_career_opportunity
+  - food_engineering_curriculum_structure
+  - food_engineering_transfer_opportunity
+  - food_engineering_tuition_fee
+  - tell_me_more_overview
+  - tell_me_more_summary
+  - tell_me_more_admission_period
+  - tell_me_more_career_opportunity
+  - tell_me_more_curriculum_structure
+  - tell_me_more_transfer_opportunity
+  - tell_me_more_tuition_fee
+  - dormitory_fee
+  - dormitory_submission
+  - dormitory_requirement
+  - tell_me_more_dormitory_fee
+  - tell_me_more_dormitory_submission
+  - tell_me_more_dormitory_requirement
+  - ielts_below_6_or_toefl_79
+  - ielts_above_6_or_toefl_79
+  - ielts_above_9
+actions:
+  - utter_greet
+  - utter_bye
+  - utter_about_bach_khoa
+  - utter_study_program
+  - utter_pre_university
+  - utter_bachelor_overall
+  - utter_bachelor_definition
+  - utter_bachelor_requirement
+  - utter_bachelor_submission
+  - utter_tell_me_more_bachelor_overall
+  - utter_tell_me_more_bachelor_definition
+  - utter_tell_me_more_bachelor_requirement
+  - utter_tell_me_more_bachelor_submission
+  - utter_computer_engineering_overview
+  - utter_computer_engineering_summary
+  - utter_computer_engineering_admission_period
+  - utter_computer_engineering_career_opportunity
+  - utter_computer_engineering_curriculum_structure
+  - utter_computer_engineering_transfer_opportunity
+  - utter_computer_engineering_tuition_fee
+  - utter_computer_science_overview
+  - utter_computer_science_summary
+  - utter_computer_science_admission_period
+  - utter_computer_science_career_opportunity
+  - utter_computer_science_curriculum_structure
+  - utter_computer_science_transfer_opportunity
+  - utter_computer_science_tuition_fee
+  - utter_food_engineering_overview
+  - utter_food_engineering_summary
+  - utter_food_engineering_admission_period
+  - utter_food_engineering_career_opportunity
+  - utter_food_engineering_curriculum_structure
+  - utter_food_engineering_transfer_opportunity
+  - utter_food_engineering_tuition_fee
+  - utter_dormitory_fee
+  - utter_dormitory_submission
+  - utter_dormitory_requirement
+  - utter_ielts_below_6_or_toefl_79
+  - utter_ielts_above_6_or_toefl_79
+  - utter_ielts_above_9
+
+templates:
+  utter_greet:
+    - text: "Hello, human!"
+  utter_bye:
+    - text: "Bye see you later :("
+  utter_about_bach_khoa:
+    - text: " Ho Chi Minh City University of Technology offers a broad array of multidisciplinary programs and specializations with 33 undergraduate majors, 41 master programs and 41 doctoral programs.
+    \n The university currently enrolls more than 25.500 students of all categories and employs nearly 1.000 highly-educated lecturers and professors graduating from the top universities all over the world.
+    \n Ho Chi Minh City University of Technology provides study programs from undergraduate level to doctorate level in various majors: Petroleum Engineering, Chemical Engineering, Industrial Management, Information Technology, Mechanical and Mechatronics Engineering, Electrical and Electronics Engineering, Civil Engineering, Transportation Engineering, Environment Technology and Management, etc.
+    \n For international students, Ho Chi Minh City University of Technology (Bach khoa) offer bachelor’s degree & master’s degree study programs of which the medium of instruction is English."
+  utter_study_program:
+    - text: "We have 4 differences study programs for international students:
+    \n &bull; BACHELOR PROGRAM: Undergraduate Admission – open for all students who complete their high school study.
+    \n &bull; PRE – UNIVERSITY: The Pre-University semester is compulsory to all students who are admitted to bachelor’s degree programs
+    \n &bull; STUDENT EXCHANGE: Student in universities around the world can apply for 1 to 2 semesters at Ho Chi Minh City University of Technology (Bach khoa).
+    \n &bull; MASTER PROGRAM: At the present, we offer 01 master program for international students: Executive Master of Business Administration in Management Consulting International."
+  utter_pre_university:
+    - text: "Pre-University semester is compulsory for all students (both locals & internationals) applying for study programs of which the medium of instruction is English.
+    \n The program is to equip students with academic preparation, soft-skills & studying skills which are essential and efficient for studying in university, as well as applicable in future career path."
+  utter_bachelor_overall:
+    - text: "BACHELOR PROGRAM: Undergraduate Admission – open for all students who complete their high school study with 14 difference majors including 
+    \n &bull; AUTOMOTIVE ENGINEERING
+    \n &bull; BUSINESS ADMINISTRATION
+    \n &bull; CHEMICAL ENGINEERING
+    \n &bull; CIVIL ENGINEERING 
+    \n &bull; COMPUTER ENGINEERING
+    \n &bull; COMPUTER SCIENCE
+    \n &bull; ELECTRICAL ELECTRONICS ENGINEERING
+    \n &bull; NATURAL RESOURCES ENVIRONMENTAL MANAGEMENT
+    \n &bull; ENVIROMENTAL ENGINEERING
+    \n &bull; FOOD TECHNOLOGY ENGINEERING
+    \n &bull; MECHATRONICS ENGINEERING
+    \n &bull; MECHANICAL ENGINEERING
+    \n &bull; PETROLEUM ENGINEERING
+    \n &bull; TRANSPORTATION ENGINEERING
+    "
+  utter_bachelor_definition:
+    - text: "Bachelor definition."
+  utter_bachelor_requirement:
+    - text: "Bachelor requirement."
+  utter_bachelor_submission:
+    - text: "Bachelor submission"
+  utter_computer_engineering_overview:
+    - text: "CE overview."
+  utter_computer_engineering_summary:
+    - text: "CE summary."
+  utter_computer_engineering_admission_period:
+    - text: "CE admission period."
+  utter_computer_engineering_career_opportunity:
+    - text: "CE career."
+  utter_computer_engineering_curriculum_structure:
+    - text: "CE curriculum."
+  utter_computer_engineering_transfer_opportunity:
+    - text: "CE transfer opportunity."
+  utter_computer_engineering_tuition_fee:
+    - text: "CE tuition fee."
+  utter_computer_science_overview:
+    - text: "Computer Science educate students in the theory and application of computer technology. 
+      \n Graduate with the most fundamental and essential knowledge from logical designing, analyzing to micro-processors and embedded devices."
+  utter_computer_science_summary:
+    - text: "CS summary."
+  utter_computer_science_admission_period:
+    - text: "CS admission period."
+  utter_computer_science_career_opportunity:
+    - text: "After graduating the Computer Science from  Ho Chi Minh City University of Technology (Bach khoa) (Ho Chi Minh City University of Technology), engineers can take a lot of work in the fields of Computer and Information Technology as:
+      \n &bull; Software designing and software constructing for banks, financial, administrative and commercial organizations, etc.
+      \n &bull; Application designing and application constructing for mobile devices, E-Commerce applications, games on computer and mobile devices, etc.
+      \n &bull; Managing and building security solutions for computer system and computer network.
+      \n &bull; Working for software outsourcing companies in the USA, Japan and Europe markets."
+  utter_computer_science_curriculum_structure:
+    - text: "CS curriculum."
+  utter_computer_science_transfer_opportunity:
+    - text: "CS transfer opportunity."
+  utter_computer_science_tuition:
+    - text: "The annual tuition fee is around 3,600 USD. The exact amount depends on the number of credits students register to study each semester.
+      \n Please see the tuition fee structure <a href="https://oisp.hcmut.edu.vn/en/admission/fees-scholarships/"> in the link here.</a>"
+  utter_food_engineering_overview:
+    - text: "Food overview."
+  utter_food_engineering_summary:
+    - text: "Food summary."
+  utter_food_engineering_admission_period:
+    - text: "Food admission period."
+  utter_food_engineering_career_opportunity:
+    - text: "Foodcareer."
+  utter_food_engineering_curriculum_structure:
+    - text: "Food curriculum."
+  utter_food_engineering_transfer_opportunity:
+    - text: "Food transfer opportunity."
+  utter_food_engineering_tuition:
+    - text: "Food tuition fee."
+  utter_dormitory_fee:
+    - text: "Dormitory fee is around 100 USD/ person /month"
+  utter_dormitory_submission:
+    - text: "apply process"
+  utter_dormitory_requirement:
+    - text: "You can go to this <a href="http://oisp.hcmut.edu.vn/en/admission/admission-requirements/">link</a> to read more information about admisson requirements"
+  utter_ielts_below_6_or_toefl_79:
+    - text: "You have to take the English Entrance Test (which follows IELTS format, if you have results from 5.0 to 5.5, you have to take Pre-University English Course to equip Academic English and essential skills for learning at University level
+    \n And if you have score equal or above 6.0, you can waive for English Course and start study major courses "
+  utter_ielts_above_6_or_toefl_79:
+    - text: "Congrats! You can waived for English courses 1, 2, 3, 4, and start studying major courses of Year 1"
+  utter_ielts_above_9:
+    - text: "Ielts score can not be above 9.0 -_-
+      . haha"
+
+
+
+- is there any support for foreign student ?
+    We have Visa, Accommodtion and Airport Pickup Support for international students.
+    /n For more information, you can go to this <a href="http://oisp.hcmut.edu.vn/en/admission/supporting-services-for-international-students/">link</a>
+- how to apply ?
+    You can apply online <a href="http://oisp.hcmut.edu.vn/en/admission/apply-online/"> here </a>.
+- is there any requirement?
+    Required minimum score for High School and other accredited international qualifications:
+    \n &bull; High School Average Score and/or High School Graduation Score: 65%
+    \n &bull; International Baccalaureate: 26 points (Max. 42 points)
+    \n &bull; GCE Advanced Level*: Math & science subjects are grade B or above, other subjects are not below grade C
+    \n &bull; SAT (Scholastic Assessment Test): 1190 points (Max. 1600 points)
+    \n &bull; ACT (American College Testing): 24 points (Max. 36 points)
+    \n &bull; BTEC Level 3 Extended Diploma: Math & science subjects are grade B or above, other subjects are not below grade C
+    You can click <a href="http://oisp.hcmut.edu.vn/en/admission/admission-requirements/"> here </a> for more information.
