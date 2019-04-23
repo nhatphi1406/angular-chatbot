@@ -4,6 +4,7 @@ import Filter from 'bad-words';
 import { map, buffer } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import uuidv1 from 'uuid/v1';
+import { forEach } from '@angular/router/src/utils/collection';
 @Injectable(
     {
         providedIn: 'root',
@@ -23,23 +24,27 @@ export class ChatService {
         if (!this.uuid) {
             this.setUUID();
         }
-        const data = this.httpClient.post(`https://7bda4b2c.ngrok.io/webhooks/rest/webhook`, {
+        const data = this.httpClient.post(`https://c6239df1.ngrok.io/webhooks/rest/webhook`, {
             "sender": this.uuid,
             "message": text
         }
         ).pipe(map((res: any) => {
-            if (res[0].text == 'Sorry, I didn’t understand that.') {
-                return {
-                    status: false,
-                    data: text
+            console.log(res);
+            const data = res.map(x=> {
+                if (x.text == 'Sorry, I didn’t understand that.') {
+                    return {
+                        status: false,
+                        data: text
+                    }
                 }
-            }
-            else {
-                return {
-                    status: true,
-                    data: res[0].text
+                else {
+                    return {
+                        status: true,
+                        data: x.text
+                    }
                 }
-            }
+            })
+            return data
         }))
         return data;
 

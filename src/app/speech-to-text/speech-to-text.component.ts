@@ -39,19 +39,19 @@ export class SpeechToTextComponent implements OnInit, OnDestroy {
                     this.chatSvc.sendMessage(value).subscribe(data => {
                         this.showSearchButton = true;
                         this.speechRecognitionService.DestroySpeechObject();
-                        if(Object.keys(data).length != 0)
-                        {
-                            this.img = 'gif1.gif';
-                            this.speechRecognitionService.sayCancel();
-                            this.speechRecognitionService.sayIt(data[0].text);
-                            this.speechRecognitionService.msg.addEventListener('end', ()=> {
-                                console.log('dsadsadsa');
-                                this.img = 'gif1.PNG';
-                            })
-                        }
-                        else {
-                            console.log("dun no")
-                        }   
+                        // if(Object.keys(data).length != 0)
+                        // {
+                        //     this.img = 'gif1.gif';
+                        //     this.speechRecognitionService.sayCancel();
+                        //     this.speechRecognitionService.sayIt(data[0].text);
+                        //     this.speechRecognitionService.msg.addEventListener('end', ()=> {
+                        //         console.log('dsadsadsa');
+                        //         this.img = 'gif1.PNG';
+                        //     })
+                        // }
+                        // else {
+                        //     console.log("dun no")
+                        // }   
                     });
                    
                 },

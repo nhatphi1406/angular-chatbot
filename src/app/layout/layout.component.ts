@@ -105,45 +105,47 @@ export class LayoutComponent implements OnInit {
   }
 
   botRely(data: any) {
-    console.log(data);
-    if (!data.status) {
-      this.chatSVC.searchGG(data.data);
-      setTimeout(() => {
-        this.chatSVC.botRep.subscribe(data => {
-          this.searchData = data
-        })
-  
-        console.log(this.searchData);
-        if (this.searchData.resultNumber != null) {
-          if (this.searchData.resultNumber == 0) {
-            this.chatList.push({
-              sender: 'bot',
-              message: 'Sorry, it out of my knowledge'
-            })
-            this.botSay('Sorry, it out of my knowledge')
-          }
-          else if (this.searchData.resultNumber > 0) {
-            this.chatList.push({
-              sender: 'bot',
-              message: 'I don\'t know, but here is some information from Internet'
-            })
-            this.searchData.result.slice(0,5).forEach(x=> {
+    data.forEach(data => {
+      if (!data.status) {
+        this.chatSVC.searchGG(data.data);
+        setTimeout(() => {
+          this.chatSVC.botRep.subscribe(data => {
+            this.searchData = data
+          })
+    
+          console.log(this.searchData);
+          if (this.searchData.resultNumber != null) {
+            if (this.searchData.resultNumber == 0) {
               this.chatList.push({
                 sender: 'bot',
-                message: `<a href="${x.link}"  target="_blank">${x.title}</a>`
+                message: 'Sorry, it out of my knowledge'
               })
-            })
-            this.botSay('I don\'t know, but here is some information from Internet')
+              this.botSay('Sorry, it out of my knowledge')
+            }
+            else if (this.searchData.resultNumber > 0) {
+              this.chatList.push({
+                sender: 'bot',
+                message: 'I don\'t know, but here is some information from Internet'
+              })
+              this.searchData.result.slice(0,3).forEach(x=> {
+                this.chatList.push({
+                  sender: 'bot',
+                  message: `<a href="${x.link}"  target="_blank">${x.title}</a>`
+                })
+              })
+              this.botSay('I don\'t know, but here is some information from Internet')
+            }
           }
-        }
-      }, 1000);
-    }
-    else {
-      this.chatList.push({
-        sender: 'bot',
-        message: data.data
-      })
-      this.botSay(data.data)
-    }
+        }, 1000);
+      }
+      else {
+        this.chatList.push({
+          sender: 'bot',
+          message: data.data
+        })
+
+        this.botSay(data.data.replace("&bull;",""))
+      }
+    })
   }
 }
