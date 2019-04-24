@@ -24,14 +24,14 @@ export class ChatService {
         if (!this.uuid) {
             this.setUUID();
         }
-        const data = this.httpClient.post(`https://c6239df1.ngrok.io/webhooks/rest/webhook`, {
+        const data = this.httpClient.post(`https://9ee4d400.ngrok.io/webhooks/rest/webhook`, {
             "sender": this.uuid,
             "message": text
         }
         ).pipe(map((res: any) => {
             console.log(res);
             const data = res.map(x=> {
-                if (x.text == 'Sorry, I didn’t understand that.') {
+                if (x.text == 'Dahell, say it again!') {
                     return {
                         status: false,
                         data: text

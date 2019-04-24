@@ -30,24 +30,26 @@ export class LayoutComponent implements OnInit {
   }
 
   send() {
-    this.chatList.push({
-      sender: 'user',
-      message: this.input
-    });
-
-    if (this.chatSVC.checkBadWords(this.input)) {
-      console.log(this.chatSVC.checkBadWords(this.input));
+    if(this.input != ''){
       this.chatList.push({
-        sender: 'bot',
-        message: 'Your question contains bad words, please say again!'
-      })
-    }
-    else {
-      this.chatSVC.sendMessage(this.input).subscribe(data => {
-        this.botRely(data)
+        sender: 'user',
+        message: this.input
       });
+  
+      if (this.chatSVC.checkBadWords(this.input)) {
+        console.log(this.chatSVC.checkBadWords(this.input));
+        this.chatList.push({
+          sender: 'bot',
+          message: 'Your question contains bad words, please say again!'
+        })
+      }
+      else {
+        this.chatSVC.sendMessage(this.input).subscribe(data => {
+          this.botRely(data)
+        });
+      }
+      this.input = '';
     }
-    this.input = '';
   }
   activateSpeechSearchMovie(): void {
     this.listening = false;
@@ -105,47 +107,64 @@ export class LayoutComponent implements OnInit {
   }
 
   botRely(data: any) {
-    data.forEach(data => {
-      if (!data.status) {
-        this.chatSVC.searchGG(data.data);
-        setTimeout(() => {
-          this.chatSVC.botRep.subscribe(data => {
-            this.searchData = data
-          })
-    
-          console.log(this.searchData);
-          if (this.searchData.resultNumber != null) {
-            if (this.searchData.resultNumber == 0) {
-              this.chatList.push({
-                sender: 'bot',
-                message: 'Sorry, it out of my knowledge'
-              })
-              this.botSay('Sorry, it out of my knowledge')
-            }
-            else if (this.searchData.resultNumber > 0) {
-              this.chatList.push({
-                sender: 'bot',
-                message: 'I don\'t know, but here is some information from Internet'
-              })
-              this.searchData.result.slice(0,3).forEach(x=> {
-                this.chatList.push({
-                  sender: 'bot',
-                  message: `<a href="${x.link}"  target="_blank">${x.title}</a>`
-                })
-              })
-              this.botSay('I don\'t know, but here is some information from Internet')
-            }
-          }
-        }, 1000);
-      }
-      else {
-        this.chatList.push({
-          sender: 'bot',
-          message: data.data
-        })
+    console.log(data);
+    let rep:any;
+    let suggest:any;
+    if(data.length > 1) {
+      rep = data[0];
+      suggest = data[1]
+    }
+    else {
+      rep = data[0]
+    }
+    // data.forEach(data => {
+    // })
 
-        this.botSay(data.data.replace("&bull;",""))
-      }
-    })
+    if (!rep.status) {
+      this.chatSVC.searchGG(rep.data);
+      setTimeout(() => {
+        this.chatSVC.botRep.subscribe(data => {
+          this.searchData = data
+        })
+  
+        console.log(this.searchData);
+        if (this.searchData.resultNumber != null) {
+          if (this.searchData.resultNumber == 0) {
+            this.chatList.push({
+              sender: 'bot',
+              message: 'Sorry, it out of my knowledge'
+            })
+            this.botSay('Sorry, it out of my knowledge')
+          }
+          else if (this.searchData.resultNumber > 0) {
+            this.chatList.push({
+              sender: 'bot',
+              message: 'I don\'t know, but here is some information from Internet'
+            })
+            this.searchData.result.slice(0,3).forEach(x=> {
+              this.chatList.push({
+                sender: 'bot',
+                message: `<a href="${x.link}"  target="_blank">${x.title}</a>`
+              })
+            })
+            this.botSay('I don\'t know, but here is some information from Internet')
+          }
+        }
+      }, 1000);
+    }
+    else {
+      this.chatList.push({
+        sender: 'bot',
+        message: rep.data
+      })
+
+      this.botSay(rep.data.replace("&bull;",""))
+    }
+    if(suggest){
+      this.chatList.push({
+        sender: 'bot',
+        message: suggest.data
+      })
+    }
   }
 }
