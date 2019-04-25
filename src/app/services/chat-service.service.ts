@@ -24,7 +24,7 @@ export class ChatService {
         if (!this.uuid) {
             this.setUUID();
         }
-        const data = this.httpClient.post(`https://9ee4d400.ngrok.io/webhooks/rest/webhook`, {
+        const data = this.httpClient.post(`https://6ff04b97.ngrok.io/webhooks/rest/webhook`, {
             "sender": this.uuid,
             "message": text
         }

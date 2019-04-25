@@ -16,11 +16,13 @@ export class LayoutComponent implements OnInit {
   speechData: string;
   img: string;
   searchData: any;
+  isSpeaking: boolean;
   constructor(private chatSVC: ChatService, private speechRecognitionService: SpeechRecognitionService) {
     this.listening = true;
     this.speechData = "";
     this.img = 'normal.gif';
     this.chatSVC.setUUID();
+    this.isSpeaking = true;
   }
 
   ngOnInit() {
@@ -30,12 +32,12 @@ export class LayoutComponent implements OnInit {
   }
 
   send() {
-    if(this.input != ''){
+    if (this.input != '') {
       this.chatList.push({
         sender: 'user',
         message: this.input
       });
-  
+
       if (this.chatSVC.checkBadWords(this.input)) {
         console.log(this.chatSVC.checkBadWords(this.input));
         this.chatList.push({
@@ -99,8 +101,20 @@ export class LayoutComponent implements OnInit {
 
   botSay(text: String) {
     this.img = 'talk.gif';
+    let sayText = text.replace(/(https?:\/\/[^\s]+)/g, '');
+    sayText = sayText.replace(/&bull;/g, '');
+    this.isSpeaking = false;
     this.speechRecognitionService.sayCancel();
-    this.speechRecognitionService.sayIt(text);
+    this.speechRecognitionService.sayIt(sayText);
+    this.speechRecognitionService.msg.addEventListener('end', () => {
+      this.img = 'normal.gif';
+      this.isSpeaking = true;
+    })
+  }
+
+  stopSpeaking() {
+    this.speechRecognitionService.sayCancel();
+    this.speechRecognitionService.sayIt("uhm");
     this.speechRecognitionService.msg.addEventListener('end', () => {
       this.img = 'normal.gif';
     })
@@ -108,25 +122,22 @@ export class LayoutComponent implements OnInit {
 
   botRely(data: any) {
     console.log(data);
-    let rep:any;
-    let suggest:any;
-    if(data.length > 1) {
+    let rep: any;
+    let suggest: any;
+    if (data.length > 1) {
       rep = data[0];
       suggest = data[1]
     }
     else {
       rep = data[0]
     }
-    // data.forEach(data => {
-    // })
-
     if (!rep.status) {
       this.chatSVC.searchGG(rep.data);
       setTimeout(() => {
         this.chatSVC.botRep.subscribe(data => {
           this.searchData = data
         })
-  
+
         console.log(this.searchData);
         if (this.searchData.resultNumber != null) {
           if (this.searchData.resultNumber == 0) {
@@ -141,7 +152,7 @@ export class LayoutComponent implements OnInit {
               sender: 'bot',
               message: 'I don\'t know, but here is some information from Internet'
             })
-            this.searchData.result.slice(0,3).forEach(x=> {
+            this.searchData.result.slice(0, 3).forEach(x => {
               this.chatList.push({
                 sender: 'bot',
                 message: `<a href="${x.link}"  target="_blank">${x.title}</a>`
@@ -157,10 +168,9 @@ export class LayoutComponent implements OnInit {
         sender: 'bot',
         message: rep.data
       })
-
-      this.botSay(rep.data.replace("&bull;",""))
+      this.botSay(rep.data)
     }
-    if(suggest){
+    if (suggest) {
       this.chatList.push({
         sender: 'bot',
         message: suggest.data

@@ -64,5 +64,9 @@
             <p>I'm listening</p>
             <button (click)="stop()">Cancel</button>
         </div>
+        <div class="listening" [ngClass]="{disable: isSpeaking == true}">
+            <p>Speaking...</p>
+            <button (click)="stopSpeaking()">Cancel</button>
+        </div>
     </div>
 </div>
