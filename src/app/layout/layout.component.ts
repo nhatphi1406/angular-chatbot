@@ -1,17 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../services/chat-service.service';
 import { SpeechRecognitionService } from '../services/speechtotext.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss']
+  styleUrls: ['./layout.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition('void <=> *', animate(300)),
+    ]),
+    trigger('EnterBot', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('0.5s 300ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-out', style({ transform: 'translateX(100%)' }))
+      ])
+    ]),
+    trigger('EnterUser', [
+      state('flyIn', style({ transform: 'translateX(0)' })),
+      transition(':enter', [
+        style({ transform: 'translateX(200%)' }),
+        animate('0.5s 300ms ease-in')
+      ]),
+      transition(':leave', [
+        animate('0.3s ease-out', style({ transform: 'translateX(100%)' }))
+      ])
+    ])
+  ]
 })
 export class LayoutComponent implements OnInit {
   input: String = '';
   chatList: any[] = [
-
-  ]
+  ];
+  typing: Boolean = false;
+  loading: Boolean = false;
   listening: boolean;
   speechData: string;
   img: string;
@@ -23,15 +59,28 @@ export class LayoutComponent implements OnInit {
     this.img = 'normal.gif';
     this.chatSVC.setUUID();
     this.isSpeaking = true;
+    this.chatList.push({
+      sender: 'bot',
+      message: `Hello, I’m BK bot. I try to be helpful  (But I’m still just a bot. Sorry!).
+      \n I can provide information about University of Technology, study programs, admission process.
+      \n If you're not sure about something just type your question below.
+      \n Or press the micro icon to use voice chat.`
+    })
+
   }
 
   ngOnInit() {
+    // this.botSay(`Hello, I’m BK bot. I try to be helpful.
+    // \n I can provide information about University of Technology, study programs, admission process.
+    // \n If you're not sure about something just type your question below.
+    // \n Or press the micro icon to use voice chat.`)
   }
   ngOnDestroy() {
     this.speechRecognitionService.DestroySpeechObject();
   }
 
   send() {
+    this.stopSpeaking();
     if (this.input != '') {
       this.chatList.push({
         sender: 'user',
@@ -39,19 +88,22 @@ export class LayoutComponent implements OnInit {
       });
 
       if (this.chatSVC.checkBadWords(this.input)) {
-        console.log(this.chatSVC.checkBadWords(this.input));
         this.chatList.push({
           sender: 'bot',
           message: 'Your question contains bad words, please say again!'
         })
       }
       else {
+        this.loading = true;
         this.chatSVC.sendMessage(this.input).subscribe(data => {
-          this.botRely(data)
+          this.botRely(data);
+          this.loading = false;
         });
       }
       this.input = '';
+
     }
+    event.stopPropagation();
   }
   activateSpeechSearchMovie(): void {
     this.listening = false;
@@ -59,6 +111,7 @@ export class LayoutComponent implements OnInit {
       .subscribe(
         //listener
         (value) => {
+          this.stopSpeaking();
           this.listening = true;
           this.speechData = 'You said: ' + value;
           this.speechRecognitionService.DestroySpeechObject();
@@ -73,10 +126,13 @@ export class LayoutComponent implements OnInit {
             })
           }
           else {
+            this.loading = true;
             this.chatSVC.sendMessage(value).subscribe(data => {
-              this.botRely(data)
+              this.botRely(data);
+              this.loading = false;
             });
           }
+          this.loading = false;
         },
         //errror
         (err) => {
@@ -92,6 +148,7 @@ export class LayoutComponent implements OnInit {
           console.log("--complete--");
           this.stop();
         });
+
   }
 
   stop() {
@@ -103,8 +160,9 @@ export class LayoutComponent implements OnInit {
     this.img = 'talk.gif';
     let sayText = text.replace(/(https?:\/\/[^\s]+)/g, '');
     sayText = sayText.replace(/&bull;/g, '');
-    this.isSpeaking = false;
+    
     this.speechRecognitionService.sayCancel();
+    this.isSpeaking = false;
     this.speechRecognitionService.sayIt(sayText);
     this.speechRecognitionService.msg.addEventListener('end', () => {
       this.img = 'normal.gif';
@@ -114,14 +172,13 @@ export class LayoutComponent implements OnInit {
 
   stopSpeaking() {
     this.speechRecognitionService.sayCancel();
-    this.speechRecognitionService.sayIt("uhm");
     this.speechRecognitionService.msg.addEventListener('end', () => {
       this.img = 'normal.gif';
+      this.isSpeaking = true;
     })
   }
 
   botRely(data: any) {
-    console.log(data);
     let rep: any;
     let suggest: any;
     if (data.length > 1) {
@@ -138,7 +195,6 @@ export class LayoutComponent implements OnInit {
           this.searchData = data
         })
 
-        console.log(this.searchData);
         if (this.searchData.resultNumber != null) {
           if (this.searchData.resultNumber == 0) {
             this.chatList.push({
@@ -166,7 +222,7 @@ export class LayoutComponent implements OnInit {
     else {
       this.chatList.push({
         sender: 'bot',
-        message: rep.data
+        message: `${rep.data}`
       })
       this.botSay(rep.data)
     }
@@ -177,4 +233,5 @@ export class LayoutComponent implements OnInit {
       })
     }
   }
+
 }

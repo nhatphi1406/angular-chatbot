@@ -15,6 +15,8 @@ import { BotComponent } from './bot/bot.component';
 import { HomeComponent } from './home/home.component';
 import Filter from 'bad-words';
 import { LinkyModule } from 'angular-linky';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +27,7 @@ import { LinkyModule } from 'angular-linky';
     HomeComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

@@ -13,7 +13,7 @@
           </ul>
         </div>
         <div class="lang">
-          ENG
+          
         </div>
       </div>
     <div class="container">
@@ -24,10 +24,10 @@
                     <!-- <img src="https://cdn.shopify.com/s/files/1/1061/1924/products/tiger_emoji_icon_png_large.png?v=1480481019"
                         alt=""> -->
                 </div>
-                <div class="message">
-                    <!-- <p>{{speechData}}</p> -->
-                    <p>Lorem ipsum dolor sit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amet consectetur adipisicing elit. Non sint autem aliquid tempora quidem ipsa asperiores error, eveniet impedit, veritatis voluptatibus facilis facere saepe dignissimos, consequuntur nesciunt doloremque dolor pariatur!</p>
-                </div>
+                <!-- <div class="message">
+                    <p>{{speechData}}</p> -->
+                    <!-- <p>Lorem ipsum dolor sit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amet consectetur adipisicing elit. Non sint autem aliquid tempora quidem ipsa asperiores error, eveniet impedit, veritatis voluptatibus facilis facere saepe dignissimos, consequuntur nesciunt doloremque dolor pariatur!</p> -->
+                <!-- </div> -->
 
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="container">
                 <div class="chatbox">
                     <div class="chatlogs" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-                        <div *ngFor="let item of chatList">
+                        <div *ngFor="let item of chatList" [@fadeInOut]>
                             <div class="chat self" *ngIf="item.sender == 'user'">
                                 <div class="user-photo"><img src="../../assets/student.png" alt=""></div>
                                 <p class="chat-message"> {{item.message}}</p>
@@ -45,9 +45,17 @@
                                 <div class="chat-message" [innerHTML]="item.message | linky" > </div>
                             </div>
                         </div>
+                        <div class="chat friend" *ngIf="loading == true">
+                            <div class="user-photo"><img src="../../assets/android.png" alt=""></div>
+                            <div class="chat-message" ><img src="../../assets/loading.gif" alt="" style="width: 20px;height: 15px;"> </div>
+                        </div>
+                        <!-- <div class="chat self" *ngIf="typing == true">
+                            <div class="user-photo"><img src="../../assets/android.png" alt=""></div>
+                            <div class="chat-message" ><img src="../../assets/loading2.gif" alt="" style="width: 20px;height: 15px;"> </div>
+                        </div> -->
                     </div>
                     <div class="chat-form">
-                        <input type="text" [(ngModel)]="input"  (keyup.enter)="send()">
+                        <input type="text" [(ngModel)]="input"  (keyup.enter)="send()" (focus)="typing = true" (focusout)="typing = false">
                         <button name="btnActivateSpeechSearchMovie" id="btnActivateSpeechSearchMovie"
                             (click)="activateSpeechSearchMovie()">
                             <img src="../../assets/mic.png" alt="">

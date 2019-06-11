@@ -17,18 +17,17 @@ export class SpeechRecognitionService {
         if (window.speechSynthesis) {
             this.msg = new SpeechSynthesisUtterance();
         }
+        const { webkitSpeechRecognition }: IWindow = <IWindow>window;
+        this.speechRecognition = new webkitSpeechRecognition();
+        this.speechRecognition.continuous = true;
+        //this.speechRecognition.interimResults = true;
+        this.speechRecognition.lang = 'en-us';
+        this.speechRecognition.maxAlternatives = 1;
+        //this.speechRecognition.interimResults = true;
     }
 
     record(): Observable<string> {
         return Observable.create(observer => {
-            const { webkitSpeechRecognition }: IWindow = <IWindow>window;
-            this.speechRecognition = new webkitSpeechRecognition();
-            //this.speechRecognition = SpeechRecognition;
-            this.speechRecognition.continuous = true;
-            //this.speechRecognition.interimResults = true;
-            this.speechRecognition.lang = 'en-us';
-            this.speechRecognition.maxAlternatives = 1;
-            //this.speechRecognition.interimResults = true;
             this.speechRecognition.onresult = speech => {
                 let term: string = "";
                 if (speech.results) {
@@ -83,13 +82,13 @@ export class SpeechRecognitionService {
         //choose voice. Fallback to default
         this.msg.voice = voices[0];
         this.msg.volume = 1;
-        this.msg.rate = 1;
+        this.msg.rate = 1.5;
         this.msg.pitch = 1;
         //message for speech
         this.msg.text = text;
         speechSynthesis.speak(this.msg);
     }
-    sayCancel(){
+    sayCancel() {
         speechSynthesis.cancel();
     }
 }
