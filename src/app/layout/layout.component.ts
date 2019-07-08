@@ -8,7 +8,7 @@ import {
   animate,
   transition
 } from '@angular/animations';
-
+import { responsiveService } from '../services/responsive.service'
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
@@ -53,7 +53,8 @@ export class LayoutComponent implements OnInit {
   img: string;
   searchData: any;
   isSpeaking: boolean;
-  constructor(private chatSVC: ChatService, private speechRecognitionService: SpeechRecognitionService) {
+  isMobile: boolean;
+  constructor(private chatSVC: ChatService, private speechRecognitionService: SpeechRecognitionService, private responsiveService: responsiveService) {
     this.listening = true;
     this.speechData = "";
     this.img = 'normal.gif';
@@ -74,6 +75,15 @@ export class LayoutComponent implements OnInit {
     // \n I can provide information about University of Technology, study programs, admission process.
     // \n If you're not sure about something just type your question below.
     // \n Or press the micro icon to use voice chat.`)
+    this.responsiveService.getMobileStatus().subscribe( isMobile =>{
+      if(isMobile){
+        this.isMobile = false
+      }
+      else{
+        this.isMobile = true
+      }
+    });
+    this.onResize(); 
   }
   ngOnDestroy() {
     this.speechRecognitionService.DestroySpeechObject();
@@ -232,6 +242,10 @@ export class LayoutComponent implements OnInit {
         message: suggest.data
       })
     }
+  }
+  onResize(){
+    this.responsiveService.checkWidth();
+    console.log(this.isMobile)
   }
 
 }

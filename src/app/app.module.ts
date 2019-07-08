@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import Filter from 'bad-words';
 import { LinkyModule } from 'angular-linky';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { responsiveService } from './services/responsive.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
   providers: [
     ChatService,
     SpeechRecognitionService,
+    responsiveService,
     Speech,
     Filter
   ],
