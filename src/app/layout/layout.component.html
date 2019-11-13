@@ -2,33 +2,30 @@
     <div class="layer"></div>
     <div class="menu">
         <div class="logo">
-          <img src="../../assets/logo.png" alt="">
-          <ul>
-            <li>
-              BK BOT.
-            </li>
-            <li>
-              Bach Khoa University
-            </li>
-          </ul>
+            <img src="../../assets/logo.png" alt="">
+            <ul>
+                <li>
+                    BK BOT.
+                </li>
+                <li>
+                    Bach Khoa University
+                </li>
+            </ul>
         </div>
         <div class="lang">
-          
+
         </div>
-      </div>
+    </div>
     <div class="container">
         <div class="right">
             <div class="container">
                 <div class="face">
-                    <img src="../../assets/{{img}}" alt="">
-                    <!-- <img src="https://cdn.shopify.com/s/files/1/1061/1924/products/tiger_emoji_icon_png_large.png?v=1480481019"
-                        alt=""> -->
+                    <img src="../../assets/{{currentImg.talking}}" alt="" *ngIf="isSpeaking === false">
+                    <img src="../../assets/{{currentImg.waiting}}" alt=""  *ngIf="isSpeaking === true">
+                    <select  [(ngModel)]="currentImg">
+                        <option *ngFor="let item of gifImages" [ngValue]="item" >{{item.name}}</option>
+                    </select>
                 </div>
-                <!-- <div class="message">
-                    <p>{{speechData}}</p> -->
-                    <!-- <p>Lorem ipsum dolor sit,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amet consectetur adipisicing elit. Non sint autem aliquid tempora quidem ipsa asperiores error, eveniet impedit, veritatis voluptatibus facilis facere saepe dignissimos, consequuntur nesciunt doloremque dolor pariatur!</p> -->
-                <!-- </div> -->
-
             </div>
         </div>
         <div class="left">
@@ -42,12 +39,13 @@
                             </div>
                             <div class="chat friend" *ngIf="item.sender == 'bot'">
                                 <div class="user-photo"><img src="../../assets/android.png" alt=""></div>
-                                <div class="chat-message" [innerHTML]="item.message | linky" > </div>
+                                <div class="chat-message" [innerHTML]="item.message | linky"> </div>
                             </div>
                         </div>
                         <div class="chat friend" *ngIf="loading == true">
                             <div class="user-photo"><img src="../../assets/android.png" alt=""></div>
-                            <div class="chat-message" ><img src="../../assets/loading.gif" alt="" style="width: 20px;height: 15px;"> </div>
+                            <div class="chat-message"><img src="../../assets/loading.gif" alt=""
+                                    style="width: 20px;height: 15px;"> </div>
                         </div>
                         <!-- <div class="chat self" *ngIf="typing == true">
                             <div class="user-photo"><img src="../../assets/android.png" alt=""></div>
@@ -55,11 +53,12 @@
                         </div> -->
                     </div>
                     <div class="chat-form">
-                        <input type="text" [(ngModel)]="input"  (keyup.enter)="send()" (focus)="typing = true" (focusout)="typing = false">
+                        <input type="text" [(ngModel)]="input" (keyup.enter)="send()" (focus)="typing = true"
+                            (focusout)="typing = false">
                         <button name="btnActivateSpeechSearchMovie" id="btnActivateSpeechSearchMovie"
                             (click)="activateSpeechSearchMovie()">
                             <img src="../../assets/mic.png" alt="">
-                            
+
                         </button>
                         <button (click)="send()">Send</button>
 

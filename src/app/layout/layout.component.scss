@@ -1,7 +1,7 @@
 .main {
     height: 100%;
     width: 100%;
-    background-image: url('https://iso.500px.com/wp-content/uploads/2016/08/stock-photo-150151767.jpg');
+    background-image: url("https://i.imgur.com/0RUQf0B.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -99,7 +99,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                opacity: 0.9;
+                opacity: 1;
 
                 .chatbox {
                     width: 500px;
@@ -255,10 +255,17 @@
                 opacity: 0.9;
 
                 .face {
+                    position: relative;
                     img {
+                        position: relative;
                         max-height: 600px;
                         border: 1px solid rgb(109, 109, 109);
                         box-shadow: 0 1px 4px hsla(0, 0%, 0%, 0.3);
+                    }
+                    select {
+                        position: absolute;
+                        right: 10px;
+                        top: 5px;
                     }
                 }
 

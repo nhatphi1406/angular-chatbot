@@ -53,10 +53,24 @@ export class LayoutComponent implements OnInit {
   img: string;
   searchData: any;
   isSpeaking: boolean;
+  gifImages = [
+    {
+      waiting: 'normal.gif',
+      talking: 'talk.gif',
+      name: 'Robot'
+    },
+    {
+      waiting: 'girl-waiting.PNG',
+      talking: 'girl-talk.gif',
+      name: 'Cute Girl'
+    }
+  ];
+  currentImg: any;
+  selectedCity: any;
+  
   constructor(private chatSVC: ChatService, private speechRecognitionService: SpeechRecognitionService) {
     this.listening = true;
     this.speechData = "";
-    this.img = 'normal.gif';
     this.chatSVC.setUUID();
     this.isSpeaking = true;
     this.chatList.push({
@@ -74,11 +88,15 @@ export class LayoutComponent implements OnInit {
     // \n I can provide information about University of Technology, study programs, admission process.
     // \n If you're not sure about something just type your question below.
     // \n Or press the micro icon to use voice chat.`)
+    this.currentImg = this.gifImages[0];
+
   }
   ngOnDestroy() {
     this.speechRecognitionService.DestroySpeechObject();
   }
-
+  selectImg() {
+    console.log(this.currentImg)
+  }
   send() {
     this.stopSpeaking();
     if (this.input != '') {
@@ -157,7 +175,6 @@ export class LayoutComponent implements OnInit {
   }
 
   botSay(text: String) {
-    this.img = 'talk.gif';
     let sayText = text.replace(/(https?:\/\/[^\s]+)/g, '');
     sayText = sayText.replace(/&bull;/g, '');
     
@@ -165,7 +182,6 @@ export class LayoutComponent implements OnInit {
     this.isSpeaking = false;
     this.speechRecognitionService.sayIt(sayText);
     this.speechRecognitionService.msg.addEventListener('end', () => {
-      this.img = 'normal.gif';
       this.isSpeaking = true;
     })
   }
@@ -173,7 +189,6 @@ export class LayoutComponent implements OnInit {
   stopSpeaking() {
     this.speechRecognitionService.sayCancel();
     this.speechRecognitionService.msg.addEventListener('end', () => {
-      this.img = 'normal.gif';
       this.isSpeaking = true;
     })
   }
